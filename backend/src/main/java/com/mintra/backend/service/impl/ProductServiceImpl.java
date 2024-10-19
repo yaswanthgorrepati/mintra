@@ -33,10 +33,10 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public ProductJson saveProduct(ProductJson productJson, MultipartFile multipartFile1, MultipartFile multipartFile2, MultipartFile multipartFile3) {
+    public ProductJson saveProduct(ProductJson productJson, MultipartFile[] images) {
         Product product = new Product(productJson.getBrandName(), productJson.getDescription());
         saveProduct(product);
-        Picture picture = pictureService.savePicture(multipartFile1, multipartFile2, multipartFile3, product.getId());
+        Picture picture = pictureService.savePicture(images, product.getId());
         PictureJson pictureJson = new PictureJson(picture.getImageUrl_1(), picture.getImageUrl_2(), picture.getImageUrl_3());
         productJson.setPicture(pictureJson);
         return productJson;

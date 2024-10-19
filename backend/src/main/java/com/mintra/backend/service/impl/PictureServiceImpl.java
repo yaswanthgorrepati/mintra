@@ -32,10 +32,10 @@ public class PictureServiceImpl implements PictureService {
 
     @Override
     @Transactional
-    public Picture savePicture(MultipartFile multipartFile1, MultipartFile multipartFile2, MultipartFile multipartFile3, long productId) {
-        Map res1 = imageUploader.uploadImage(multipartFile1);
-        Map res2= imageUploader.uploadImage(multipartFile2);
-        Map res3 = imageUploader.uploadImage(multipartFile3);
+    public Picture savePicture(MultipartFile[] images, long productId) {
+        Map res1 = imageUploader.uploadImage(images[0]);
+        Map res2= imageUploader.uploadImage(images[1]);
+        Map res3 = imageUploader.uploadImage(images[2]);
         Picture picture= new Picture((String) res1.get("url"), (String) res2.get("url"), (String) res3.get("url"), productId);
         return pictureRepository.savePicture(picture);
     }

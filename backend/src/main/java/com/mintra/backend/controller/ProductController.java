@@ -36,7 +36,7 @@ public class ProductController {
     @PostMapping("/v2/{productCategory}")
     public ResponseEntity<String> saveProductV2(@RequestParam String productJson, @RequestParam MultipartFile[] images){
         ProductJson productJson1 = gson.fromJson(productJson, ProductJson.class);
-        ProductJson product1 = productService.saveProduct(productJson1,  images[0],  images[1],  images[2]);
+        ProductJson product1 = productService.saveProduct(productJson1,  images);
         return new ResponseEntity<>(gson.toJson(product1), HttpStatus.OK);
     }
 

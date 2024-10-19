@@ -9,5 +9,5 @@ public interface ProductService {
 
     Product saveProduct(Product product);
 
-    ProductJson saveProduct(ProductJson productJson, MultipartFile multipartFile1, MultipartFile multipartFile2, MultipartFile multipartFile3);
+    ProductJson saveProduct(ProductJson productJson, MultipartFile[] images);
 }

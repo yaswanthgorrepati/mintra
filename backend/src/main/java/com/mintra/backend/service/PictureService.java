@@ -9,5 +9,5 @@ public interface PictureService {
 
     Picture getPictureByProductId(long productId);
 
-    Picture savePicture(MultipartFile multipartFile1, MultipartFile multipartFile2, MultipartFile multipartFile3, long productId);
+    Picture savePicture(MultipartFile[] images, long productId);
 }
