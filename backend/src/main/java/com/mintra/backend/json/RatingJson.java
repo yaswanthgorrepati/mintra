@@ -4,6 +4,11 @@ public class RatingJson {
     private double stars;
     private int totalRatings;
 
+    public RatingJson(double stars, int totalRatings) {
+        this.stars = stars;
+        this.totalRatings = totalRatings;
+    }
+
     public double getStars() {
         return stars;
     }

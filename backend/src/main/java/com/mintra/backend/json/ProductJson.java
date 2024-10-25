@@ -4,14 +4,23 @@ import java.util.List;
 
 public class ProductJson {
 
+    private long productId;
     private String brandName;
     private String description;
     private PriceJson price;
     private RatingJson rating;
     private PictureJson picture;
-    private SizeJson size;
+    private List<SizeJson> sizeList;
     private ProductSpecificationJson productSpecification;
     private List<ReviewJson> reviewList;
+
+    public long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(long productId) {
+        this.productId = productId;
+    }
 
     public String getBrandName() {
         return brandName;
@@ -53,12 +62,12 @@ public class ProductJson {
         this.picture = picture;
     }
 
-    public SizeJson getSize() {
-        return size;
+    public List<SizeJson> getSizeList() {
+        return sizeList;
     }
 
-    public void setSize(SizeJson size) {
-        this.size = size;
+    public void setSizeList(List<SizeJson> sizeList) {
+        this.sizeList = sizeList;
     }
 
     public ProductSpecificationJson getProductSpecification() {

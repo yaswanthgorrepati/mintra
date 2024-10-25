@@ -5,6 +5,11 @@ public class ReviewJson {
     private String userName;
     private String description;
 
+    public ReviewJson(String userName, String description) {
+        this.userName = userName;
+        this.description = description;
+    }
+
     public String getUserName() {
         return userName;
     }

@@ -5,6 +5,12 @@ public class PriceJson {
     private double actualPrice;
     private double discount;
 
+    public PriceJson(double finalPrice, double actualPrice, double discount) {
+        this.finalPrice = finalPrice;
+        this.actualPrice = actualPrice;
+        this.discount = discount;
+    }
+
     public double getFinalPrice() {
         return finalPrice;
     }

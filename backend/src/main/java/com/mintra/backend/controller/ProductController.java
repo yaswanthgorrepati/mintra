@@ -23,8 +23,8 @@ public class ProductController {
     @GetMapping("/{productCategory}/{productId}")
     public ResponseEntity<String> getProductById(@PathVariable("productCategory") String productCategory,
                                                  @PathVariable("productId") String productId){
-        Product product = productService.getProductById(Long.parseLong(productId));
-        return new ResponseEntity<>(gson.toJson(product), HttpStatus.OK);
+        ProductJson productJson = productService.getProductById(Long.parseLong(productId));
+        return new ResponseEntity<>(gson.toJson(productJson), HttpStatus.OK);
     }
 
     @PostMapping("/{productCategory}")

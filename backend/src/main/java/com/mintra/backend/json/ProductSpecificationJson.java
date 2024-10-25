@@ -8,6 +8,12 @@ public class ProductSpecificationJson {
     private String fabric;
     private int numberOfPockets;
 
+    public ProductSpecificationJson(String fitType, String fabric, int numberOfPockets) {
+        this.fitType = fitType;
+        this.fabric = fabric;
+        this.numberOfPockets = numberOfPockets;
+    }
+
     public String getFitType() {
         return fitType;
     }
