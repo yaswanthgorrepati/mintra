@@ -60,3 +60,107 @@ curl --location 'localhost:8080/image?name=Nature'
 "derived": [],
 "height": 183
 }
+
+### 2. Product save API[October 25th]
+
+Product save API
+
+Request:
+curl --location --globoff 'localhost:8080/product/v2/{cat}' \
+--form 'productJson="{ \"brandName\": \"testbn\", \"description\": \"testdesc\", \"price\": { \"actualPrice\": 100, \"discount\": 10 }, \"productSpecification\": { \"fitType\": \"regular_fit\", \"fabric\": \"cotton\", \"numberOfPockets\": 4 }, \"rating\": { \"stars\": 4.5, \"totalRatings\": 100 }, \"reviewList\": [ { \"userName\": \"test_1\", \"description\": \"very good\" }, { \"userName\": \"test_2\", \"description\": \"super good\" } ], \"sizeList\": [ { \"size\": \"32\" }, { \"size\": \"L\" } ] }";type=application/json' \
+--form 'images=@"/Users/yaswanth/Downloads/img1.jpeg"' \
+--form 'images=@"/Users/yaswanth/Downloads/Img2.jpeg"' \
+--form 'images=@"/Users/yaswanth/Downloads/Img3.jpeg"'
+
+Response:
+
+{
+"productId": 1,
+"brandName": "testbn",
+"description": "testdesc",
+"price": {
+"finalPrice": 0.0,
+"actualPrice": 100.0,
+"discount": 10.0
+},
+"rating": {
+"stars": 4.5,
+"totalRatings": 100
+},
+"picture": {
+"imageUrl_1": "http://res.cloudinary.com/df2plpdhf/image/upload/v1729329224/img1.jpg",
+"imageUrl_2": "http://res.cloudinary.com/df2plpdhf/image/upload/v1729329436/Img2.jpg",
+"imageUrl_3": "http://res.cloudinary.com/df2plpdhf/image/upload/v1729329437/Img3.jpg"
+},
+"sizeList": [
+{
+"size": "32"
+},
+{
+"size": "L"
+}
+],
+"productSpecification": {
+"fitType": "regular_fit",
+"fabric": "cotton",
+"numberOfPockets": 4
+},
+"reviewList": [
+{
+"userName": "test_1",
+"description": "very good"
+},
+{
+"userName": "test_2",
+"description": "super good"
+}
+]
+}
+
+### 3. Product fetch API
+
+Request:
+curl --location 'localhost:8080/product/cat/1'
+Response:
+{
+"productId": 1,
+"brandName": "testbn",
+"description": "testdesc",
+"price": {
+"finalPrice": 90.0,
+"actualPrice": 100.0,
+"discount": 10.0
+},
+"rating": {
+"stars": 4.5,
+"totalRatings": 100
+},
+"picture": {
+"imageUrl_1": "http://res.cloudinary.com/df2plpdhf/image/upload/v1729329224/img1.jpg",
+"imageUrl_2": "http://res.cloudinary.com/df2plpdhf/image/upload/v1729329436/Img2.jpg",
+"imageUrl_3": "http://res.cloudinary.com/df2plpdhf/image/upload/v1729329437/Img3.jpg"
+},
+"sizeList": [
+{
+"size": "32"
+},
+{
+"size": "L"
+}
+],
+"productSpecification": {
+"fitType": "regular_fit",
+"fabric": "cotton",
+"numberOfPockets": 4
+},
+"reviewList": [
+{
+"userName": "test_1",
+"description": "very good"
+},
+{
+"userName": "test_2",
+"description": "super good"
+}
+]
+}
