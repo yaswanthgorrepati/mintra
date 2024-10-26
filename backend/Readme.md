@@ -1,12 +1,14 @@
 ### 1. Image upload[October 16th]
 Upload API
+``` JSON
 curl --location 'localhost:8080/image' \
 --form 'multipartFile=@"/Users/yaswanth/Downloads/Nature.jpg"'
+``` 
+
 
 response:
 
-
-
+``` JSON
 {
 "asset_folder": "",
 "signature": "f1510a286bcc705303bbff424b3a2c304ca90336",
@@ -31,10 +33,15 @@ response:
 "placeholder": false,
 "height": 183
 }
+``` 
 
 Fetch API
+``` JSON
 curl --location 'localhost:8080/image?name=Nature'
+``` 
 
+Response:
+``` JSON
 {
 "asset_folder": "",
 "next_cursor": "8aba18bbad2db72cda17f0c7ebdd5d54771b79f21f6492c3b4bbd4c0ae01ebf3",
@@ -60,20 +67,21 @@ curl --location 'localhost:8080/image?name=Nature'
 "derived": [],
 "height": 183
 }
-
+```
 ### 2. Product save API[October 25th]
 
 Product save API
 
 Request:
+``` JSON
 curl --location --globoff 'localhost:8080/product/v2/{cat}' \
 --form 'productJson="{ \"brandName\": \"testbn\", \"description\": \"testdesc\", \"price\": { \"actualPrice\": 100, \"discount\": 10 }, \"productSpecification\": { \"fitType\": \"regular_fit\", \"fabric\": \"cotton\", \"numberOfPockets\": 4 }, \"rating\": { \"stars\": 4.5, \"totalRatings\": 100 }, \"reviewList\": [ { \"userName\": \"test_1\", \"description\": \"very good\" }, { \"userName\": \"test_2\", \"description\": \"super good\" } ], \"sizeList\": [ { \"size\": \"32\" }, { \"size\": \"L\" } ] }";type=application/json' \
 --form 'images=@"/Users/yaswanth/Downloads/img1.jpeg"' \
 --form 'images=@"/Users/yaswanth/Downloads/Img2.jpeg"' \
 --form 'images=@"/Users/yaswanth/Downloads/Img3.jpeg"'
-
+``` 
 Response:
-
+``` JSON
 {
 "productId": 1,
 "brandName": "testbn",
@@ -116,12 +124,15 @@ Response:
 }
 ]
 }
-
+``` 
 ### 3. Product fetch API
 
 Request:
+``` JSON
 curl --location 'localhost:8080/product/cat/1'
+``` 
 Response:
+``` JSON
 {
 "productId": 1,
 "brandName": "testbn",
@@ -164,3 +175,94 @@ Response:
 }
 ]
 }
+```
+
+
+### 4.PostReview API[October 26th]
+
+``` JSON
+curl --location 'localhost:8080/review/2' \
+--header 'Content-Type: application/json' \
+--data '{
+"userName": "test_1",
+"description": "very cvb good",
+"stars": 1
+}'
+``` 
+
+Response:
+
+``` JSON
+{
+    "productId": 2,
+    "userName": "test_1",
+    "description": "very cvb good",
+    "stars": 1.0
+}
+```
+
+### 5.Delete Review API
+
+Request:
+``` JSON
+curl --location --request DELETE 'localhost:8080/review/1' \
+--header 'Content-Type: application/json' \
+--data '{
+"userName": "test_1"
+}'
+```
+Response:
+``` JSON
+{
+"message": "1 Review deleted successfully"
+}
+```
+
+### 6. Get Review API for a user and product
+
+Request:
+
+``` JSON
+curl --location --request GET 'localhost:8080/review/1' \
+--header 'Content-Type: application/json' \
+--data '{
+"userName": "test_1"
+}'
+```
+Response:
+``` JSON
+{
+"productId": 1,
+"userName": "test_1",
+"description": "very good",
+"stars": 5.0
+}
+```
+
+### 7. Get Review for a User API
+
+Request:
+``` JSON
+curl --location --request GET 'localhost:8080/review' \
+--header 'Content-Type: application/json' \
+--data '{
+"userName": "test_1"
+}'
+```
+Response:
+``` JSON
+[
+{
+"productId": 2,
+"userName": "test_1",
+"description": "very cvb good",
+"stars": 1.0
+},
+{
+"productId": 3,
+"userName": "test_1",
+"description": "very good",
+"stars": 5.0
+}
+]
+```
