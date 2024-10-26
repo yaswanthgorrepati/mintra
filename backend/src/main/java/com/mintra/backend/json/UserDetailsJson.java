@@ -1,10 +1,11 @@
 package com.mintra.backend.json;
 
-public class UserJson {
+public class UserDetailsJson {
 
     private String userName;
+    private String password;
 
-    public UserJson(String userName) {
+    public UserDetailsJson(String userName) {
         this.userName = userName;
     }
 
