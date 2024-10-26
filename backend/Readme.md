@@ -466,7 +466,47 @@ Response:
 }
 ```
 
-### 11.
+### 11. Register New User
+
+Request:
+``` JSON
+curl --location 'localhost:8080/user' \
+--header 'Content-Type: application/json' \
+--data '{
+    "userName":"test",
+    "password":"123"
+}'
+```
+
+Response:
+``` JSON
+{
+    "userId": 1,
+    "userName": "test",
+    "message": "User registered successfully"
+}
+```
+
+### 12. User Validation
+
+Request:
+``` JSON
+curl --location --request GET 'localhost:8080/user' \
+--header 'Content-Type: application/json' \
+--data '{
+    "userName":"test",
+    "password":"123"
+}'
+```
+
+Response:
+``` JSON
+{
+    "message": "User is valid"
+}
+```
+
+### 13.
 
 Request:
 ``` JSON
