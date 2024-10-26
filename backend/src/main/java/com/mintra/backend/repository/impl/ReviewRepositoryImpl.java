@@ -33,6 +33,15 @@ public class ReviewRepositoryImpl implements ReviewRepository {
     }
 
     @Override
+    public Review getReviewsByProductIdAndUserName(long productId, String userName) {
+        TypedQuery<Review> typedQuery = entityManager.createNamedQuery("getReviewsByProductIdAndUserName", Review.class);
+        typedQuery.setParameter("productId", productId);
+        typedQuery.setParameter("userName", userName);
+        List<Review> reviewList = typedQuery.getResultList();
+        return CollectionUtils.isEmpty(reviewList) ? null : reviewList.get(0);
+    }
+
+    @Override
     public Review saveReview(Review review) {
         entityManager.persist(review);
         return review;
@@ -44,5 +53,30 @@ public class ReviewRepositoryImpl implements ReviewRepository {
             entityManager.persist(review);
         }
         return reviewList;
+    }
+
+    @Override
+    public int deleteReview(long productId, String userName) {
+        TypedQuery typedQuery = (TypedQuery) entityManager.createNamedQuery("deleteReviewByProductIdAndUserName");
+        typedQuery.setParameter("productId", productId);
+        typedQuery.setParameter("userName", userName);
+        int rows = typedQuery.executeUpdate();
+        return rows;
+    }
+
+    @Override
+    public int deleteReview(long id) {
+        TypedQuery typedQuery = (TypedQuery) entityManager.createNamedQuery("deleteReviewById");
+        typedQuery.setParameter("id", id);
+        int rows = typedQuery.executeUpdate();
+        return rows;
+    }
+
+    @Override
+    public List<Review> getReviewsByUserName(String userName) {
+        TypedQuery<Review> typedQuery = entityManager.createNamedQuery("getReviewsByUserName", Review.class);
+        typedQuery.setParameter("userName", userName);
+        List<Review> reviewList = typedQuery.getResultList();
+        return CollectionUtils.isEmpty(reviewList) ? null : reviewList;
     }
 }

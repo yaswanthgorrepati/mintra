@@ -31,4 +31,11 @@ public class RatingServiceImpl implements RatingService {
         ratingRepository.saveRating(rating);
         return rating;
     }
+
+    @Override
+    @Transactional
+    public Rating saveRating(Rating rating) {
+        ratingRepository.saveRating(rating);
+        return rating;
+    }
 }

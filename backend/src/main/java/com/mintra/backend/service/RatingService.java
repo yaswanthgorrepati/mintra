@@ -10,4 +10,6 @@ public interface RatingService {
     Rating getRatingByProductId(long productId);
 
     Rating saveRating(RatingJson ratingJson, long productId);
+
+    Rating saveRating(Rating rating);
 }

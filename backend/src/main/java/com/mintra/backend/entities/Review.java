@@ -5,7 +5,11 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "REVIEW")
 @NamedQueries({@NamedQuery(name = "getReviewById", query = "SELECT r FROM Review r WHERE r.id =:id"),
-        @NamedQuery(name = "getReviewsByProductId", query = "SELECT r FROM Review r WHERE r.productId =:productId")})
+        @NamedQuery(name = "getReviewsByProductId", query = "SELECT r FROM Review r WHERE r.productId =:productId"),
+        @NamedQuery(name = "getReviewsByProductIdAndUserName", query = "SELECT r FROM Review r WHERE r.productId =:productId AND r.userName =:userName"),
+        @NamedQuery(name = "deleteReviewByProductIdAndUserName", query = "DELETE FROM Review r WHERE r.productId =:productId AND r.userName =:userName"),
+        @NamedQuery(name = "deleteReviewById", query = "DELETE FROM Review r WHERE r.id =:id"),
+        @NamedQuery(name = "getReviewsByUserName", query = "SELECT r FROM Review r WHERE r.userName =:userName")})
 public class Review {
 
     @Id
@@ -15,15 +19,18 @@ public class Review {
     private String userName;
     @Column(name = "description")
     private String description;
+    @Column(name = "stars")
+    private double stars;
     @Column(name = "productId")
     private long productId;
 
     public Review() {
     }
 
-    public Review(String userName, String description, long productId) {
+    public Review(String userName, String description, double stars, long productId) {
         this.userName = userName;
         this.description = description;
+        this.stars = stars;
         this.productId = productId;
     }
 
@@ -49,6 +56,14 @@ public class Review {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public double getStars() {
+        return stars;
+    }
+
+    public void setStars(double stars) {
+        this.stars = stars;
     }
 
     public long getProductId() {

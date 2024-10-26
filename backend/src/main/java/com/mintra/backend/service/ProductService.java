@@ -5,6 +5,9 @@ import com.mintra.backend.json.ProductJson;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface ProductService {
+
+    ProductJson getMinProductById(long productId);
+
     ProductJson getProductById(long productId);
 
     Product saveProduct(Product product);

@@ -10,7 +10,15 @@ public interface ReviewRepository {
 
     List<Review> getReviewsByProductId(long productId);
 
+    Review getReviewsByProductIdAndUserName(long productId, String userName);
+
     Review saveReview(Review review);
 
     List<Review> saveReviewList(List<Review> reviewList);
+
+    int deleteReview(long productId, String userName);
+
+    int deleteReview(long id);
+
+    List<Review> getReviewsByUserName(String userName);
 }

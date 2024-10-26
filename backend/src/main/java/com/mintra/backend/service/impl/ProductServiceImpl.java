@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -35,6 +36,19 @@ public class ProductServiceImpl implements ProductService {
     private SizeService sizeService;
 
     @Override
+    public ProductJson getMinProductById(long productId) {
+        Product product = productRepository.getProductById(productId);
+        if(Objects.nonNull(product)) {
+            ProductJson productJson = new ProductJson();
+            productJson.setProductId(product.getId());
+            productJson.setDescription(product.getDescription());
+            productJson.setBrandName(product.getBrandName());
+            return productJson;
+        }
+        return null;
+    }
+
+    @Override
     public ProductJson getProductById(long productId) {
         Product product = productRepository.getProductById(productId);
         Picture picture = pictureService.getPictureByProductId(productId);
@@ -54,7 +68,7 @@ public class ProductServiceImpl implements ProductService {
         PictureJson pictureJson = new PictureJson(picture.getImageUrl_1(), picture.getImageUrl_2(), picture.getImageUrl_3());
         ProductSpecificationJson productSpecificationJson = new ProductSpecificationJson(productSpecification.getFitType(), productSpecification.getFabric(), productSpecification.getNumberOfPockets());
         RatingJson ratingJson = new RatingJson(rating.getStars(), rating.getTotalRatings());
-        List<ReviewJson> reviewJsonList = reviewList.stream().map(r -> new ReviewJson(r.getUserName(), r.getDescription())).toList();
+        List<ReviewJson> reviewJsonList = reviewList.stream().map(r -> new ReviewJson(r.getUserName(), r.getDescription(), r.getStars())).toList();
         List<SizeJson> sizeJsonList = sizeList.stream().map(size -> new SizeJson(size.getSize())).toList();
 
         productJson.setPrice(priceJson);
@@ -85,13 +99,19 @@ public class ProductServiceImpl implements ProductService {
         productJson.setPicture(pictureJson);
 
         priceService.savePrive(productJson.getPrice(), product.getId());
-
         productSpecificationService.saveProductSpecification(productJson.getProductSpecification(), product.getId());
-        ratingService.saveRating(productJson.getRating(), product.getId());
-
         reviewService.saveReviewList(productJson.getReviewList(), product.getId());
-        sizeService.saveSizes(productJson.getSizeList(), product.getId());
 
+        //calculate the rating
+        double  totalStars = productJson.getReviewList().stream().mapToDouble(reviewJson -> reviewJson.getStars()).sum();
+        int totalRatings = productJson.getReviewList().size();
+        double finalrating = totalStars/totalRatings;
+
+        Rating rating = new Rating(finalrating, totalRatings, product.getId());
+        ratingService.saveRating(rating);
+
+        sizeService.saveSizes(productJson.getSizeList(), product.getId());
+        productJson.setRating(new RatingJson(finalrating, totalRatings));
         return productJson;
     }
 }

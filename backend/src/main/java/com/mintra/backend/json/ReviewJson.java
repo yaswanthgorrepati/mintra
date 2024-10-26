@@ -4,10 +4,12 @@ public class ReviewJson {
 
     private String userName;
     private String description;
+    private double stars;
 
-    public ReviewJson(String userName, String description) {
+    public ReviewJson(String userName, String description, double stars) {
         this.userName = userName;
         this.description = description;
+        this.stars = stars;
     }
 
     public String getUserName() {
@@ -24,5 +26,13 @@ public class ReviewJson {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public double getStars() {
+        return stars;
+    }
+
+    public void setStars(double stars) {
+        this.stars = stars;
     }
 }
