@@ -548,7 +548,98 @@ Response:
 }
 ```
 
-### 15.
+### 15. Save/Update Address API
+
+Request:
+``` JSON
+curl --location 'localhost:8080/user/address' \
+--header 'Content-Type: application/json' \
+--data '{
+    "userName": "test",
+    "userAddressList": [
+        {
+            "aliasName": "My address",
+            "street1":"cross road",
+            "street2":"1st line",
+            "street3":"3rd building",
+            "landMark":"Opp. Shop Complex",
+            "town":"New Town",
+            "district":"Ongole",
+            "state":"Andhra Pradesh",
+            "pincode":"12344",
+            "addressType":"PERMANENT_ADDRESS"
+        }
+    ]
+}'
+```
+
+Response:
+``` JSON
+{
+    "message": "Address saved successfully"
+}
+```
+
+### 16. Retrieve Address API
+
+Request:
+``` JSON
+curl --location --request GET 'localhost:8080/user/address' \
+--header 'Content-Type: application/json' \
+--data '{
+    "userName":"test"
+}'
+```
+
+Response:
+``` JSON
+{
+    "userName": "test",
+    "email": "test@mail.com",
+    "mobileNumber": "985648736",
+    "userAddressList": [
+        {
+            "addressId": 1,
+            "aliasName": "My address",
+            "street1": "cross road",
+            "street2": "1st line",
+            "street3": "3rd building",
+            "landMark": "Opp. Shop Complex",
+            "town": "New Town",
+            "district": "Ongole",
+            "state": "Andhra Pradesh",
+            "pincode": "12344",
+            "addressType": "PERMANENT_ADDRESS"
+        }
+    ],
+    "message": "Success"
+}
+```
+
+### 17. Delete Address API
+
+Request:
+``` JSON
+curl --location --request DELETE 'localhost:8080/user/address' \
+--header 'Content-Type: application/json' \
+--data '{
+    "userName": "test",
+    "userAddressList": [
+        {
+            "addressId": 1
+        }
+    ]
+}'
+```
+
+Response:
+``` JSON
+{
+    "message": "1 Address deleted successfully"
+}
+```
+
+### 18.
 
 Request:
 ``` JSON
