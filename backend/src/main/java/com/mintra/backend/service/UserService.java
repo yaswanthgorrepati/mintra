@@ -13,7 +13,12 @@ public interface UserService {
 
     GenericResponse saveOrUpdateUserDetails(UserDetailsJson userDetailsJson);
 
-    GenericResponse getUserDetails(String userName);
+    //retrieve useraddress as well
+    GenericResponse getUserDetails(String userName, boolean fetchUserAddress);
+
+    GenericResponse saveOrUpdateUserAddress(UserDetailsJson userDetailsJson);
+
+    GenericResponse deleteUserAddress(UserDetailsJson userDetailsJson);
 
 
 }

@@ -41,7 +41,26 @@ public class UserController {
 
     @GetMapping("/details")
     public ResponseEntity<String> getUserDetails(@RequestBody UserDetailsJson userDetailsJson){
-        GenericResponse genericResponse = userService.getUserDetails(userDetailsJson.getUserName());
+        GenericResponse genericResponse = userService.getUserDetails(userDetailsJson.getUserName(), false);
+        return new ResponseEntity<>(gson.toJson(genericResponse), HttpStatus.OK);
+    }
+
+    @PostMapping("/address")
+    public ResponseEntity<String> saveOrUpdateUserAddress(@RequestBody UserDetailsJson userDetailsJson){
+        GenericResponse genericResponse = userService.saveOrUpdateUserAddress(userDetailsJson);
+        return new ResponseEntity<>(gson.toJson(genericResponse), HttpStatus.OK);
+    }
+
+    @GetMapping("/address")
+    public ResponseEntity<String> getUserAddress(@RequestBody UserDetailsJson userDetailsJson){
+        GenericResponse genericResponse = userService.getUserDetails(userDetailsJson.getUserName(), true);
+        return new ResponseEntity<>(gson.toJson(genericResponse), HttpStatus.OK);
+    }
+
+
+    @DeleteMapping("/address")
+    public ResponseEntity<String> deleteUserAddress(@RequestBody UserDetailsJson userDetailsJson){
+        GenericResponse genericResponse = userService.deleteUserAddress(userDetailsJson);
         return new ResponseEntity<>(gson.toJson(genericResponse), HttpStatus.OK);
     }
 }

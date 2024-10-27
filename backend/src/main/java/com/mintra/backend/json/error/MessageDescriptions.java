@@ -13,6 +13,8 @@ public class MessageDescriptions {
     public static final String SUCCESS = "Success";
     public static final String USER_DETAILS_NOT_FOUND = "User details not found";
     public static final String USER_NOT_FOUND = "User not found";
+    public static final String ADDRESS_SAVED_SUCCESSFULLY = "Address saved successfully";
+    public static final String ADDRESS_DELETED_SUCCESSFULLY = "Address deleted successfully";
 
 
 }

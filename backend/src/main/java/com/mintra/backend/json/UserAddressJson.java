@@ -1,47 +1,25 @@
-package com.mintra.backend.entities;
+package com.mintra.backend.json;
 
 import com.mintra.backend.enums.AddressType;
-import jakarta.persistence.*;
 
-@Entity
-@Table(name = "USERADDRESS")
-@NamedQueries({@NamedQuery(name = "getUserAddressByUserName", query = "SELECT u FROM UserAddress u WHERE u.userName =:userName"),
-        @NamedQuery(name = "deleteUserAddressByIdAndUserName", query = "DELETE FROM UserAddress u WHERE u.id =:id AND u.userName=:userName")})
-public class UserAddress {
+public class UserAddressJson {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-    @Column(name = "userName")
-    private String userName;
-    @Column(name = "aliasName")
+    private long addressId;
     private String aliasName;
-    @Column(name = "street1")
     private String street1;
-    @Column(name = "street2")
     private String street2;
-    @Column(name = "street3")
     private String street3;
-    @Column(name = "landMark")
     private String landMark;
-    @Column(name = "town")
     private String town;
-    @Column(name = "district")
     private String district;
-    @Column(name = "state")
     private String state;
-    @Column(name = "pincode")
     private String pincode;
-    @Column(name = "addressType")
     private AddressType addressType;
 
-    public UserAddress() {
-    }
-
-    public UserAddress(String userName, String aliasName, String street1, String street2, String street3,
-                       String landMark, String town, String district, String state, String pincode,
-                       AddressType addressType) {
-        this.userName = userName;
+    public UserAddressJson(long addressId, String aliasName, String street1, String street2, String street3,
+                           String landMark, String town, String district, String state, String pincode,
+                           AddressType addressType) {
+        this.addressId = addressId;
         this.aliasName = aliasName;
         this.street1 = street1;
         this.street2 = street2;
@@ -54,20 +32,12 @@ public class UserAddress {
         this.addressType = addressType;
     }
 
-    public long getId() {
-        return id;
+    public long getAddressId() {
+        return addressId;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setAddressId(long addressId) {
+        this.addressId = addressId;
     }
 
     public String getAliasName() {
