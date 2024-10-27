@@ -9,5 +9,10 @@ public class MessageDescriptions {
     public static final String USER_REGISTRATION_FAILED = "User registered failed";
     public static final String VALID_USER = "User is valid";
     public static final String INVALID_USER = "Invalid user";
+    public static final String USER_DETAILS_SAVED_SUCCESSFULLY = "User details are saved successfully";
+    public static final String SUCCESS = "Success";
+    public static final String USER_DETAILS_NOT_FOUND = "User details not found";
+    public static final String USER_NOT_FOUND = "User not found";
+
 
 }

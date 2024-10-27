@@ -2,6 +2,7 @@ package com.mintra.backend.controller;
 
 import com.google.gson.Gson;
 import com.mintra.backend.json.UserCredsJson;
+import com.mintra.backend.json.UserDetailsJson;
 import com.mintra.backend.json.response.GenericResponse;
 import com.mintra.backend.json.response.UserCredsResponseJson;
 import com.mintra.backend.service.UserService;
@@ -29,6 +30,18 @@ public class UserController {
     @GetMapping("")
     public ResponseEntity<String> validateUser(@RequestBody UserCredsJson userCredsJson){
         GenericResponse genericResponse = userService.isUserValid(userCredsJson.getPassword(), userCredsJson.getUserName());
+        return new ResponseEntity<>(gson.toJson(genericResponse), HttpStatus.OK);
+    }
+
+    @PostMapping("/details")
+    public ResponseEntity<String> saveOrUpdateUserDetails(@RequestBody UserDetailsJson userDetailsJson){
+        GenericResponse genericResponse = userService.saveOrUpdateUserDetails(userDetailsJson);
+        return new ResponseEntity<>(gson.toJson(genericResponse), HttpStatus.OK);
+    }
+
+    @GetMapping("/details")
+    public ResponseEntity<String> getUserDetails(@RequestBody UserDetailsJson userDetailsJson){
+        GenericResponse genericResponse = userService.getUserDetails(userDetailsJson.getUserName());
         return new ResponseEntity<>(gson.toJson(genericResponse), HttpStatus.OK);
     }
 }

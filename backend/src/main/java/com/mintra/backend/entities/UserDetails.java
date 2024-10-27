@@ -4,14 +4,14 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "USERDETAILS")
-//@NamedQueries({@NamedQuery(name = "", query = "")})
+@NamedQueries({@NamedQuery(name = "getUserDetailsByuserName", query = "SELECT u FROM UserDetails u WHERE u.userName =:userName")})
 public class UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @Column(name = "userId")
-    private long userId;
+    @Column(name = "userName")
+    private String  userName;
     @Column(name = "email")
     private String email;
     @Column(name = "mobileNumber")
@@ -20,8 +20,8 @@ public class UserDetails {
     public UserDetails() {
     }
 
-    public UserDetails(long userId, String email, String mobileNumber) {
-        this.userId = userId;
+    public UserDetails(String userName, String email, String mobileNumber) {
+        this.userName = userName;
         this.email = email;
         this.mobileNumber = mobileNumber;
     }
@@ -34,12 +34,12 @@ public class UserDetails {
         this.id = id;
     }
 
-    public long getUserId() {
-        return userId;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getEmail() {
