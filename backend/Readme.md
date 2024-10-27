@@ -639,7 +639,243 @@ Response:
 }
 ```
 
-### 18.
+### 18. Place Order API
+
+Request:
+``` JSON
+curl --location 'localhost:8080/order' \
+--header 'Content-Type: application/json' \
+--data '{
+    "userName": "test",
+    "deliveryAddressId": "1",
+    "ordersList": [
+        {
+            "productId": 1,
+            "quantity": 2
+        }
+    ]
+}'
+```
+
+Response:
+``` JSON
+{
+    "orderResponseJsonList": [
+        {
+            "orderId": 2,
+            "productJson": {
+                "productId": 1,
+                "brandName": "testbn",
+                "description": "testdesc",
+                "price": {
+                    "finalPrice": 90.0,
+                    "actualPrice": 100.0,
+                    "discount": 10.0
+                },
+                "rating": {
+                    "stars": 3.0,
+                    "totalRatings": 2
+                },
+                "picture": {
+                    "imageUrl_1": "http://res.cloudinary.com/df2plpdhf/image/upload/v1729329224/img1.jpg",
+                    "imageUrl_2": "http://res.cloudinary.com/df2plpdhf/image/upload/v1729329436/Img2.jpg",
+                    "imageUrl_3": "http://res.cloudinary.com/df2plpdhf/image/upload/v1729329437/Img3.jpg"
+                },
+                "sizeList": [
+                    {
+                        "size": "32"
+                    },
+                    {
+                        "size": "L"
+                    }
+                ],
+                "productSpecification": {
+                    "fitType": "regular_fit",
+                    "fabric": "cotton",
+                    "numberOfPockets": 4
+                },
+                "reviewList": [
+                    {
+                        "userName": "test_1",
+                        "description": "very good",
+                        "stars": 5.0
+                    },
+                    {
+                        "userName": "test_2",
+                        "description": "super good",
+                        "stars": 1.0
+                    }
+                ]
+            },
+            "orderPaymentStatus": "SUCCESSFULL",
+            "status": "ORDER_PLACED",
+            "expectedDeliveryDate": "Oct 27, 2024, 6:47:33 PM"
+        }
+    ],
+    "userAddressJson": {
+        "addressId": 1,
+        "aliasName": "My address",
+        "street1": "cross road",
+        "street2": "1st line",
+        "street3": "3rd building",
+        "landMark": "Opp. Shop Complex",
+        "town": "New Town",
+        "district": "Ongole",
+        "state": "Andhra Pradesh",
+        "pincode": "12344",
+        "addressType": "PERMANENT_ADDRESS"
+    },
+    "message": "Success"
+}
+```
+
+### 19. Get Orders API
+
+Request:
+``` JSON
+curl --location --request GET 'localhost:8080/order' \
+--header 'Content-Type: application/json' \
+--data '{
+    "userName": "test"
+}'
+```
+
+Response:
+``` JSON
+{
+    "orderResponseJsonList": [
+        {
+            "orderId": 1,
+            "productJson": {
+                "productId": 1,
+                "brandName": "testbn",
+                "description": "testdesc",
+                "price": {
+                    "finalPrice": 90.0,
+                    "actualPrice": 100.0,
+                    "discount": 10.0
+                },
+                "rating": {
+                    "stars": 3.0,
+                    "totalRatings": 2
+                },
+                "picture": {
+                    "imageUrl_1": "http://res.cloudinary.com/df2plpdhf/image/upload/v1729329224/img1.jpg",
+                    "imageUrl_2": "http://res.cloudinary.com/df2plpdhf/image/upload/v1729329436/Img2.jpg",
+                    "imageUrl_3": "http://res.cloudinary.com/df2plpdhf/image/upload/v1729329437/Img3.jpg"
+                },
+                "sizeList": [
+                    {
+                        "size": "32"
+                    },
+                    {
+                        "size": "L"
+                    }
+                ],
+                "productSpecification": {
+                    "fitType": "regular_fit",
+                    "fabric": "cotton",
+                    "numberOfPockets": 4
+                },
+                "reviewList": [
+                    {
+                        "userName": "test_1",
+                        "description": "very good",
+                        "stars": 5.0
+                    },
+                    {
+                        "userName": "test_2",
+                        "description": "super good",
+                        "stars": 1.0
+                    }
+                ]
+            },
+            "orderPaymentStatus": "FAILED",
+            "status": "ORDER_CANCELLED",
+            "expectedDeliveryDate": "Oct 17, 2024, 5:30:00 AM"
+        },
+        {
+            "orderId": 2,
+            "productJson": {
+                "productId": 1,
+                "brandName": "testbn",
+                "description": "testdesc",
+                "price": {
+                    "finalPrice": 90.0,
+                    "actualPrice": 100.0,
+                    "discount": 10.0
+                },
+                "rating": {
+                    "stars": 3.0,
+                    "totalRatings": 2
+                },
+                "picture": {
+                    "imageUrl_1": "http://res.cloudinary.com/df2plpdhf/image/upload/v1729329224/img1.jpg",
+                    "imageUrl_2": "http://res.cloudinary.com/df2plpdhf/image/upload/v1729329436/Img2.jpg",
+                    "imageUrl_3": "http://res.cloudinary.com/df2plpdhf/image/upload/v1729329437/Img3.jpg"
+                },
+                "sizeList": [
+                    {
+                        "size": "32"
+                    },
+                    {
+                        "size": "L"
+                    }
+                ],
+                "productSpecification": {
+                    "fitType": "regular_fit",
+                    "fabric": "cotton",
+                    "numberOfPockets": 4
+                },
+                "reviewList": [
+                    {
+                        "userName": "test_1",
+                        "description": "very good",
+                        "stars": 5.0
+                    },
+                    {
+                        "userName": "test_2",
+                        "description": "super good",
+                        "stars": 1.0
+                    }
+                ]
+            },
+            "orderPaymentStatus": "SUCCESSFULL",
+            "status": "ORDER_PLACED",
+            "expectedDeliveryDate": "Oct 27, 2024, 6:47:33 PM"
+        }
+    ],
+    "message": "Success"
+}
+```
+
+### 20. Update Orders API
+
+Request:
+``` JSON
+curl --location 'localhost:8080/order/update' \
+--header 'Content-Type: application/json' \
+--data '{
+    "userName": "test",
+    // "status": "ORDER_CANCELLED",
+    // "orderPaymentStatus":"FAILED",
+    "expectedDeliveryDate":"2024-10-17",
+    "ordersList": [
+        {
+            "orderId": 1
+        }
+    ]
+}'
+```
+
+Response:
+``` JSON
+{
+    "message": "Success"
+}
+```
+
+### 21.
 
 Request:
 ``` JSON
