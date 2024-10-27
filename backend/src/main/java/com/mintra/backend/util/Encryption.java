@@ -1,4 +1,4 @@
-package com.mintra.backend.util.image;
+package com.mintra.backend.util;
 
 public class Encryption {
 

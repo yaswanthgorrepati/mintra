@@ -15,6 +15,8 @@ public class MessageDescriptions {
     public static final String USER_NOT_FOUND = "User not found";
     public static final String ADDRESS_SAVED_SUCCESSFULLY = "Address saved successfully";
     public static final String ADDRESS_DELETED_SUCCESSFULLY = "Address deleted successfully";
+    public static final String PAYMENT_SUCCESS = "Payment success";
+    public static final String UPDATE_DID_NOT_HAPPEN = "Update did not happen";
 
 
 }

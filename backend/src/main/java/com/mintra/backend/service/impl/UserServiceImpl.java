@@ -13,7 +13,7 @@ import com.mintra.backend.repository.UserAddressRepository;
 import com.mintra.backend.repository.UserDetailsRepository;
 import com.mintra.backend.repository.UserRepository;
 import com.mintra.backend.service.UserService;
-import com.mintra.backend.util.image.Encryption;
+import com.mintra.backend.util.Encryption;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -81,7 +81,7 @@ public class UserServiceImpl implements UserService {
     public GenericResponse getUserDetails(String userName, boolean fetchUserAddress) {
         Users users = userRepository.getUserByUserName(userName);
         if(Objects.isNull(users)){
-            return new GenericResponse(USER_NOT_FOUND);
+            new UserDetailsResponseJson(USER_NOT_FOUND, userName);
         }
 
         UserDetails userDetails = userDetailsRepository.getUserDetailsByuserName(userName);

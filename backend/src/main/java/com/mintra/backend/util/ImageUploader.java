@@ -1,4 +1,4 @@
-package com.mintra.backend.util.image;
+package com.mintra.backend.util;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.api.ApiResponse;

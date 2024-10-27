@@ -1,0 +1,13 @@
+package com.mintra.backend.enums;
+
+public enum Status {
+
+    ORDER_PENDING,
+    ORDER_PLACED,
+    ORDER_PACKAGING,
+    ORDER_INTRANSIT,
+    ORDER_OUT_FOR_DELIVERY,
+    ORDER_DELIVERED,
+    ORDER_CANCELLED,
+    ORDER_DELIVERY_FAILED;
+}

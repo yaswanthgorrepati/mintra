@@ -3,7 +3,7 @@ package com.mintra.backend.service.impl;
 import com.mintra.backend.entities.Picture;
 import com.mintra.backend.repository.PictureRepository;
 import com.mintra.backend.service.PictureService;
-import com.mintra.backend.util.image.ImageUploader;
+import com.mintra.backend.util.ImageUploader;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
