@@ -506,7 +506,49 @@ Response:
 }
 ```
 
-### 13.
+### 13. Save/Update user details API
+
+Request:
+``` JSON
+curl --location 'localhost:8080/user/details' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "userName":"test",
+    "email":"test@mail.com",
+    "mobileNumber":"985648736"
+}'
+```
+
+Response:
+``` JSON
+{
+    "userName": "test",
+    "message": "User details are saved successfully"
+}
+```
+
+### 14. Retrieve user details API
+
+Request:
+``` JSON
+curl --location --request GET 'localhost:8080/user/details' \
+--header 'Content-Type: application/json' \
+--data '{
+    "userName":"test"
+}'
+```
+
+Response:
+``` JSON
+{
+    "userName": "test",
+    "email": "test@mail.com",
+    "mobileNumber": "985648736",
+    "message": "Success"
+}
+```
+
+### 15.
 
 Request:
 ``` JSON
