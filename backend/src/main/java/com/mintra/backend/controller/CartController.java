@@ -30,21 +30,21 @@ public class CartController {
 
     @GetMapping("")
     public ResponseEntity<String> getCartResponseJson(@RequestBody CartProductJson cartProductJson){
-//        createCart(cartProductJson.getUserName());
+        createCart(cartProductJson.getUserName());
         CartResponseJson cartResponseJson = cartService.getCartResponseJsonByUserName(cartProductJson.getUserName());
         return new ResponseEntity<>(gson.toJson(cartResponseJson), HttpStatus.OK);
     }
 
     @PostMapping("")
     public ResponseEntity<String> updateCart(@RequestBody CartProductJson cartProductJson){
-//        createCart(cartProductJson.getUserName());
+        createCart(cartProductJson.getUserName());
         CartProductResponseJson cartProductResponseJson = cartService.updateCart(cartProductJson.getUserName(), cartProductJson.getProductId(), cartProductJson.getQuantity());
         return new ResponseEntity<>(gson.toJson(cartProductResponseJson), HttpStatus.OK);
     }
 
     @DeleteMapping("")
     public ResponseEntity<String> deleteProductFromCart(@RequestBody CartProductJson cartProductJson){
-//        createCart(cartProductJson.getUserName());
+        createCart(cartProductJson.getUserName());
         int row = cartService.deleteProductFromCart(cartProductJson.getUserName(), cartProductJson.getProductId());
         return new ResponseEntity<>(gson.toJson(new SuccessResponse(row + " " + PRODUCT_DELETED)), HttpStatus.OK);
     }

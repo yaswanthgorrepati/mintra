@@ -470,7 +470,7 @@ Response:
 
 Request:
 ``` JSON
-curl --location 'localhost:8080/user' \
+curl --location 'localhost:8080/user/register' \
 --header 'Content-Type: application/json' \
 --data '{
     "userName":"test",
@@ -491,7 +491,7 @@ Response:
 
 Request:
 ``` JSON
-curl --location --request GET 'localhost:8080/user' \
+curl --location --request GET 'localhost:8080/user/validate' \
 --header 'Content-Type: application/json' \
 --data '{
     "userName":"test",
@@ -502,6 +502,9 @@ curl --location --request GET 'localhost:8080/user' \
 Response:
 ``` JSON
 {
+    "userId": 1,
+    "userName": "test",
+    "jwtToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MzAyNzMzMzcsInVzZXJOYW1lIjoidGVzdCIsImlhdCI6MTczMDI2OTczNywidXNlcklkIjoiMSIsInRva2VuIjoiT3VxZTRPZnd6RDhjMm9XWkxIZGl3YTl5bzF6TzJNVnhXUlNBdE5lVHBaUT0ifQ.u_21U-tGU-dl21JRpGu5uerpE7quR4xVX2G5Xyo_D14",
     "message": "User is valid"
 }
 ```
@@ -511,6 +514,7 @@ Response:
 Request:
 ``` JSON
 curl --location 'localhost:8080/user/details' \
+--header 'jwt_token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MzAyNzMzMzcsInVzZXJOYW1lIjoidGVzdCIsImlhdCI6MTczMDI2OTczNywidXNlcklkIjoiMSIsInRva2VuIjoiT3VxZTRPZnd6RDhjMm9XWkxIZGl3YTl5bzF6TzJNVnhXUlNBdE5lVHBaUT0ifQ.u_21U-tGU-dl21JRpGu5uerpE7quR4xVX2G5Xyo_D14' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "userName":"test",

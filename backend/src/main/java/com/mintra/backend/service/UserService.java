@@ -9,7 +9,7 @@ public interface UserService {
 
     GenericResponse registerNewUser(UserCredsJson userCredsJson);
 
-    GenericResponse isUserValid(String encryptedPassword, String  userName);
+    GenericResponse isUserValid(String password, String  userName);
 
     GenericResponse saveOrUpdateUserDetails(UserDetailsJson userDetailsJson);
 

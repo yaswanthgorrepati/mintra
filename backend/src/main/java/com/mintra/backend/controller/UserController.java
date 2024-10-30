@@ -21,13 +21,13 @@ public class UserController {
 
     private Gson gson = new Gson();
 
-    @PostMapping("")
+    @PostMapping("/register")
     public ResponseEntity<String> registerNewUser(@RequestBody UserCredsJson userCredsJson){
         GenericResponse genericResponse = userService.registerNewUser(userCredsJson);
         return new ResponseEntity<>(gson.toJson(genericResponse), HttpStatus.OK);
     }
 
-    @GetMapping("")
+    @GetMapping("/validate")
     public ResponseEntity<String> validateUser(@RequestBody UserCredsJson userCredsJson){
         GenericResponse genericResponse = userService.isUserValid(userCredsJson.getPassword(), userCredsJson.getUserName());
         return new ResponseEntity<>(gson.toJson(genericResponse), HttpStatus.OK);

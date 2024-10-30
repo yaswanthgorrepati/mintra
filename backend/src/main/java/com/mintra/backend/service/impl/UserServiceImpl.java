@@ -13,13 +13,16 @@ import com.mintra.backend.repository.UserAddressRepository;
 import com.mintra.backend.repository.UserDetailsRepository;
 import com.mintra.backend.repository.UserRepository;
 import com.mintra.backend.service.UserService;
-import com.mintra.backend.util.Encryption;
+import com.mintra.backend.util.AESEncryption;
+import com.mintra.backend.util.JWTTokenGenerator;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import static com.mintra.backend.json.error.MessageDescriptions.*;
@@ -36,6 +39,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserAddressRepository userAddressRepository;
 
+    @Autowired
+    private JWTTokenGenerator jwtTokenGenerator;
+
     @Override
     @Transactional
     public GenericResponse registerNewUser(UserCredsJson userCredsJson) {
@@ -44,18 +50,24 @@ public class UserServiceImpl implements UserService {
         if(Objects.nonNull(existingUser)){
             return new GenericResponse(USER_REGISTRATION_FAILED);
         }
-        Users user = new Users(userCredsJson.getUserName(), Encryption.encrypt(userCredsJson.getPassword()));
+        Users user = new Users(userCredsJson.getUserName(), AESEncryption.encrypt(userCredsJson.getPassword()));
         userRepository.addUser(user);
         return new UserCredsResponseJson(USER_REGISTRATION_SUCCESSFULL, user.getId(), user.getUserName());
     }
 
     @Override
-    public GenericResponse isUserValid(String encryptedPassword, String userName) {
+    public GenericResponse isUserValid(String password, String userName) {
         Users user = userRepository.getUserByUserName(userName);
-        if(Objects.nonNull(user) && user.getPassword().equals(encryptedPassword)){
-            return new GenericResponse(VALID_USER);
+        if(Objects.nonNull(user) && user.getPassword().equals(AESEncryption.encrypt(password))){
+            //generate jwt token
+            Map<String, String> payload = new HashMap<>();
+            payload.put(USER_ID, String.valueOf(user.getId()));
+            payload.put(USER_NAME, user.getUserName());
+            payload.put(TOKEN, AESEncryption.encrypt(user.getPassword()));
+            String jwtToken = jwtTokenGenerator.createJWT(payload);
+            return new UserCredsResponseJson(VALID_USER, user.getId(), user.getUserName(), jwtToken);
         }else {
-            return new GenericResponse(INVALID_USER);
+            return new UserCredsResponseJson(INVALID_USER, user.getUserName());
         }
     }
 

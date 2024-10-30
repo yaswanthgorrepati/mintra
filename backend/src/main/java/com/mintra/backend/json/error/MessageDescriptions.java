@@ -17,6 +17,10 @@ public class MessageDescriptions {
     public static final String ADDRESS_DELETED_SUCCESSFULLY = "Address deleted successfully";
     public static final String PAYMENT_SUCCESS = "Payment success";
     public static final String UPDATE_DID_NOT_HAPPEN = "Update did not happen";
+    public static String USER_ID="userId";
+    public static String USER_NAME="userName";
+    public static String TOKEN="token";
+    public static String JWT_HEADER_TOKEN="jwt_token";
 
 
 }
