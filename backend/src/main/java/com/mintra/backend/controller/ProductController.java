@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.logging.Logger;
+
 @RestController
 @RequestMapping("/product")
 public class ProductController {
@@ -18,6 +20,9 @@ public class ProductController {
     private ProductService productService;
 
     private Gson gson = new Gson();
+
+    private static final Logger logger = Logger.getLogger(ProductController.class.getName());
+
 
 
     @GetMapping("/{productCategory}/{productId}")
@@ -29,6 +34,8 @@ public class ProductController {
 
     @PostMapping("/{productCategory}")
     public ResponseEntity<String> saveProduct(@RequestBody Product product){
+        logger.info("test i save product");
+        logger.info("test i save product {}" + product);
         Product product1 = productService.saveProduct(product);
         return new ResponseEntity<>(gson.toJson(product), HttpStatus.OK);
     }
