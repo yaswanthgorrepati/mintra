@@ -10,6 +10,8 @@ import com.mintra.backend.repository.OrdersRepository;
 import com.mintra.backend.service.OrderService;
 import com.mintra.backend.service.ProductService;
 import com.mintra.backend.service.UserService;
+import com.mintra.backend.util.PaymentGateway;
+import com.razorpay.Order;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,31 +34,64 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private ProductService productService;
+    @Autowired
+    PaymentGateway paymentGateway;
 
-    public GenericResponse makePayment(Object o) {
-        return new GenericResponse(PAYMENT_SUCCESS);
+    public Order makePayment(OrdersJson ordersJson) {
+        //payment gate way code goes here.
+         Order order = paymentGateway.makeOrder();
+        System.out.println(order);
+        return order;
     }
+
+
 
     @Override
     @Transactional
     public GenericResponse placeOrder(OrdersJson ordersJson) {
         //get these from Razor Pay
-        makePayment(ordersJson);
-        OrderPaymentStatus orderPaymentStatus = OrderPaymentStatus.SUCCESSFULL;
-        Status status =  Status.ORDER_PLACED;
-        Date deliveryDate = new Date();
-        List<Orders> ordersList = ordersJson.getOrdersList().stream().map(orderJson ->
-                new Orders(orderJson.getProductId(), orderJson.getQuantity(), ordersJson.getUserName(),ordersJson.getDeliveryAddressId(),
-                        orderPaymentStatus,status, deliveryDate))
-                .toList();
-        ordersRepository.createOrders(ordersList);
-
-        UserDetailsResponseJson userDetailsResponseJson = (UserDetailsResponseJson) userService.getUserDetails(ordersJson.getUserName(), true);
-        List<OrderResponseJson> orderResponseJsonList  = ordersList.stream().map(orders -> {
-            ProductJson productJson = productService.getProductById(orders.getProductId());
-            return new OrderResponseJson(orders.getId(), productJson,orders.getOrderPaymentStatus(), orders.getStatus(), orders.getExpectedDeliveryDate());
-        }).toList();
-        OrdersResponseJson ordersResponseJson = new OrdersResponseJson(SUCCESS, orderResponseJsonList, userDetailsResponseJson.getUserAddressList().get(0));
+        Order order = makePayment(ordersJson);
+//        OrderPaymentStatus orderPaymentStatus = OrderPaymentStatus.SUCCESSFULL;
+//        Status status =  Status.ORDER_PLACED;
+//        Date deliveryDate = new Date();
+//        List<Orders> ordersList = ordersJson.getOrdersList().stream().map(orderJson ->
+//                new Orders(orderJson.getProductId(), orderJson.getQuantity(), ordersJson.getUserName(),ordersJson.getDeliveryAddressId(),
+//                        orderPaymentStatus,status, deliveryDate))
+//                .toList();
+//        ordersRepository.createOrders(ordersList);
+//
+//        UserDetailsResponseJson userDetailsResponseJson = (UserDetailsResponseJson) userService.getUserDetails(ordersJson.getUserName(), true);
+//        List<OrderResponseJson> orderResponseJsonList  = ordersList.stream().map(orders -> {
+//            ProductJson productJson = productService.getProductById(orders.getProductId());
+//            return new OrderResponseJson(orders.getId(), productJson,orders.getOrderPaymentStatus(), orders.getStatus(), orders.getExpectedDeliveryDate());
+//        }).toList();
+//        OrdersResponseJson ordersResponseJson = new OrdersResponseJson(SUCCESS, orderResponseJsonList, userDetailsResponseJson.getUserAddressList().get(0));
+//        return ordersResponseJson;
+//    }
+//
+//
+//    @Override
+//    @Transactional
+//    public GenericResponse placeOrderV2(OrdersJson ordersJson) {
+//        //get these from Razor Pay
+//        makePayment(ordersJson);
+//        OrderPaymentStatus orderPaymentStatus = OrderPaymentStatus.PENDING;
+//        Status status =  Status.ORDER_PENDING;
+//        Date deliveryDate = new Date();
+//        List<Orders> ordersList = ordersJson.getOrdersList().stream().map(orderJson ->
+//                        new Orders(orderJson.getProductId(), orderJson.getQuantity(), ordersJson.getUserName(),ordersJson.getDeliveryAddressId(),
+//                                orderPaymentStatus,status, deliveryDate))
+//                .toList();
+//        ordersRepository.createOrders(ordersList);
+//
+//        UserDetailsResponseJson userDetailsResponseJson = (UserDetailsResponseJson) userService.getUserDetails(ordersJson.getUserName(), true);
+//        List<OrderResponseJson> orderResponseJsonList  = ordersList.stream().map(orders -> {
+//            ProductJson productJson = productService.getProductById(orders.getProductId());
+//            return new OrderResponseJson(orders.getId(), productJson,orders.getOrderPaymentStatus(), orders.getStatus(), orders.getExpectedDeliveryDate());
+//        }).toList();
+//        OrdersResponseJson ordersResponseJson = new OrdersResponseJson(SUCCESS, orderResponseJsonList, userDetailsResponseJson.getUserAddressList().get(0));
+        OrdersResponseJson ordersResponseJson = new OrdersResponseJson(SUCCESS);
+        ordersResponseJson.setOrder(order);
         return ordersResponseJson;
     }
 
